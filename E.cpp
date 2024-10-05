@@ -2,7 +2,7 @@
 using namespace std;
 
 struct information {
-	char name[6], address[6], phone[11];
+	char name[100], address[100], phone[11];
 };
 information info;
  
@@ -59,14 +59,15 @@ void update_file(ifstream& inFile) {
 	cout << "Enter number of the user" << endl;
 	cin >> id_;
 	int i = 0;
-	 while(!inFile.eof()) {
+	while(true) {
 	 	inFile.seekg(sizeof(information) * i, ios::beg);
+	 	inFile >> info.name >> info.address >> info.phone;
 	 	if(inFile.eof()) {
-	 		cout << "EOF reached";
+	 		cout << "\nEOF reached\n";
 	 		break;
 	 	}
-	 	inFile >> info.name >> info.address >> info.phone;
-        if(compare_phone(info.phone, id_)) {
+	 	int a = compare_phone(info.phone, id_);
+        if(a == 1) {
             cout << "Updating information for user with phone: " << info.phone << endl;
             cout << "Enter new name: ";
             cin >> newdata.name;
